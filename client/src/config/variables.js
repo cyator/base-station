@@ -1,12 +1,3 @@
-export const colors = {
-	purple1: '#6c5efb',
-	purple2: '#c998ff',
-	purple3: '#a44afe',
-	background: '#eaedff',
-};
-
-export const keys = ['London', 'Paris', 'Berlin'];
-
 export function setTooltipStyles(defaultStyles) {
 	return {
 		...defaultStyles,
