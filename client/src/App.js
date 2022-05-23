@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import LineChart from './components/LineChart';
 import useSessionStorage from './hooks/useSessionStorage';
+//import BrushChart from './components/BrushChart';
+//import Bar from './components/Bar'
 
 const socket = io(process.env.REACT_APP_SERVER_URL || 'http://localhost:5000');
 
@@ -108,8 +110,8 @@ function App() {
 				<span>Latitude: {latitude}</span>
 			</div>
 
-			<div style={{ width: '1200px', height: '675px', margin: 'auto' }}>
-				<LineChart x={x} y={y} />
+			<div>
+				<LineChart />
 			</div>
 		</div>
 	);
