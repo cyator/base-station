@@ -13,6 +13,7 @@ export function setTooltipStyles(defaultStyles) {
 		minWidth: 60,
 		backgroundColor: 'rgba(0,0,0,0.9)',
 		color: 'white',
+		borderRadius: 3,
 	};
 }
 export const margin = { top: 32, right: 32, bottom: 32, left: 32 };

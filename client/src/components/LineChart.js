@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import { appleStock } from '@visx/mock-data';
-//import { useTooltip, TooltipWithBounds } from '@visx/tooltip';
+import { useTooltip, TooltipWithBounds, defaultStyles } from '@visx/tooltip';
 import useMeasure from 'react-use-measure';
 import { extent, bisector } from 'd3-array';
-//import { timeFormat } from 'd3-time-format';
+import { timeFormat } from 'd3-time-format';
 import { Group } from '@visx/group';
 import { curveNatural } from '@visx/curve';
 import { Bar, Line, LinePath } from '@visx/shape';
 import { scaleLinear, scaleTime } from '@visx/scale';
-//import { localPoint } from '@visx/event';
+import { localPoint } from '@visx/event';
 import { AxisBottom, AxisLeft } from '@visx/axis';
 import { Grid } from '@visx/grid';
 
@@ -19,19 +19,22 @@ import {
 	getInnerDimensions,
 	getXValue,
 	getYValue,
+	setTooltipStyles,
 } from '../config/variables';
 
 const data = appleStock;
 
-function LineChart() {
-	// const {
-	// 	showTooltip,
-	// 	hideTooltip,
-	// 	tooltipData,
-	// 	tooltipLeft = 0,
-	// 	tooltipTop = 0,
-	// } = useTooltip();
+const bisect = bisector((d) => new Date(d.date)).left;
 
+function LineChart() {
+	const {
+		showTooltip,
+		hideTooltip,
+		tooltipData,
+		tooltipLeft = 0,
+		tooltipTop = 0,
+	} = useTooltip();
+	const tooltipStyles = setTooltipStyles(defaultStyles);
 	const [ref, { width, height }] = useMeasure();
 	const { innerHeight, innerWidth } = getInnerDimensions(height, width);
 
@@ -110,10 +113,10 @@ function LineChart() {
 					<Group>
 						<AxisLeft left={margin.left} scale={yScale} />
 					</Group>
-					{/* <Group>
+					<Group left={margin.left} top={margin.top}>
 						<Bar
-							width={width}
-							height={height}
+							width={innerWidth}
+							height={innerHeight}
 							fill="transparent"
 							onMouseMove={(event) => {
 								const { x } = localPoint(event) || { x: 0 };
@@ -165,19 +168,22 @@ function LineChart() {
 								pointerEvents="none"
 							/>
 						</Group>
-					) : null*/}
+					) : null}
 				</svg>
-				{/*
+
 				{tooltipData ? (
 					<TooltipWithBounds
 						key={Math.random()}
 						top={tooltipTop}
 						left={tooltipLeft}
-						//style={tooltipStyles}
+						style={tooltipStyles}
 					>
-						<b>{formatter.format(getYValue(tooltipData))}</b>
+						<b>{`${timeFormat('%b %d, %Y')(
+							new Date(getXValue(tooltipData))
+						)}`}</b>
+						: ${getYValue(tooltipData)}
 					</TooltipWithBounds>
-				) : null} */}
+				) : null}
 			</div>
 		</div>
 	);
