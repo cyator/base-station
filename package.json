@@ -19,7 +19,6 @@
 	},
 	"devDependencies": {
 		"concurrently": "^7.2.0",
-		"nodemon": "^2.0.16",
-		"serve": "^13.0.2"
+		"nodemon": "^2.0.16"
 	}
 }
